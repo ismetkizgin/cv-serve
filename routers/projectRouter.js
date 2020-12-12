@@ -37,4 +37,16 @@ router.put('/project', tokenControl, projectValidator.update, async (req, res) =
     }
 });
 
+router.delete('/project', tokenControl, projectValidator.bodyId, async (req, res) => {
+    try {
+        const result = await projectTransactions.deleteAsync(req.body);
+        res.json(result);
+    } catch (error) {
+        if (error.status == 404)
+            res.status(HttpStatusCode.UNAUTHORIZED).send('Project is not registered in the system.');
+        else
+            res.status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR).send(error.message);
+    }
+});
+
 module.exports = router;

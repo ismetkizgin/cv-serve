@@ -55,6 +55,21 @@ class ProjectTransactions {
         });
     }
 
+    deleteAsync(values) {
+        return new Promise((resolve, reject) => {
+            this._datacontext.query(`DELETE FROM tblproject ${sqlHelper.getWhere(values)}`, (error, result) => {
+                if (!error) {
+                    if (result.affectedRows)
+                        resolve('Deletion succeeded.');
+                    else
+                        reject({ status: HttpStatusCode.GONE, message: 'There is no such project.' });
+                }
+                else {
+                    reject({ status: HttpStatusCode.INTERNAL_SERVER_ERROR, message: error.message });
+                }
+            });
+        });
+    }
 }
 
 module.exports = ProjectTransactions;
