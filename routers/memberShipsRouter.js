@@ -24,4 +24,20 @@ router.get(
   }
 );
 
+router.get(
+  '/member-ships/:Id',
+  tokenControl,
+  memberShipsValidator.paramId,
+  async (req, res) => {
+    try {
+      const result = await memberShipsTransactions.listAsync(req.params);
+      res.json(result[0]);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
 module.exports = router;
