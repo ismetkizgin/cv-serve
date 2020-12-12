@@ -1,0 +1,17 @@
+GET {{baseUrl}}/references HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+
+###
+
+
+POST {{baseUrl}}/references HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "Name": "Kadir Can KARADEMİR",
+    "Phone": "0555 555 55 55",
+    "CompanyName": "Doctor"
+}
