@@ -19,6 +19,22 @@ class WorkExperienceValidator extends CommonValidator {
             res.status(HttpStatusCode.EXPECTATION_FAILED).send('Must have correct data entry.');
         }
     }
+
+    static async update(req, res, next) {
+        try {
+            await joi.object({
+                Id: joi.number().required(),
+                CompanyName: joi.string().max(200).required(),
+                Title: joi.string().max(150).required(),
+                StartDateOfWork: joi.date().required(),
+                DismissalDate: joi.date()
+            }).validateAsync(req.body);
+            next();
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCode.EXPECTATION_FAILED).send('Must have correct data entry.');
+        }
+    }
 }
 
 module.exports = WorkExperienceValidator;

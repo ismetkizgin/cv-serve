@@ -19,9 +19,21 @@ router.get('/work-experience', tokenControl, workExperienceValidator.limitAndOff
 router.post('/work-experience', tokenControl, workExperienceValidator.insert, async (req, res) => {
     try {
         req.body.StartDateOfWork = new Date(req.body.StartDateOfWork);
-        if(req.body.DismissalDate)
+        if (req.body.DismissalDate)
             req.body.DismissalDate = new Date(req.body.DismissalDate);
         const result = await workExperienceTransactions.insertAsync(req.body);
+        res.json(result);
+    } catch (error) {
+        res.status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR).send(error.message);
+    }
+});
+
+router.put('/work-experience', tokenControl, workExperienceValidator.update, async (req, res) => {
+    try {
+        req.body.StartDateOfWork = new Date(req.body.StartDateOfWork);
+        if (req.body.DismissalDate)
+            req.body.DismissalDate = new Date(req.body.DismissalDate);
+        const result = await workExperienceTransactions.updateAsync(req.body);
         res.json(result);
     } catch (error) {
         res.status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR).send(error.message);
