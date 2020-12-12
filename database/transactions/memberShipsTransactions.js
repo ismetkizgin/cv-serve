@@ -19,7 +19,7 @@ class PersonalInformationTransactions {
             else
               reject({
                 status: HttpStatusCode.NOT_FOUND,
-                message: 'No project registered to the system was found.'
+                message: 'No member ship registered to the system was found.'
               });
           } else {
             reject({
@@ -52,6 +52,39 @@ class PersonalInformationTransactions {
                 ? {
                     status: HttpStatusCode.CONFLICT,
                     message: 'There is such a member ships.'
+                  }
+                : {
+                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                    message: error.message
+                  }
+            );
+          }
+        }
+      );
+    });
+  }
+
+  updateAsync(values) {
+    return new Promise((resolve, reject) => {
+      this._datacontext.query(
+        `UPDATE tblMemberShips SET ? WHERE Id=?`,
+        [values, values.Id],
+        (error, result) => {
+          if (!error) {
+            if (result.affectedRows)
+              resolve('Member ship information has been updated.');
+            else
+              reject({
+                status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message:
+                  'An error occurred while updating member ship information.'
+              });
+          } else {
+            reject(
+              error.errno == 1062
+                ? {
+                    status: HttpStatusCode.CONFLICT,
+                    message: 'There is such member ship.'
                   }
                 : {
                     status: HttpStatusCode.INTERNAL_SERVER_ERROR,

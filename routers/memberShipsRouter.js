@@ -56,4 +56,20 @@ router.post(
   }
 );
 
+router.put(
+  '/member-ships',
+  tokenControl,
+  memberShipsValidator.update,
+  async (req, res) => {
+    try {
+      const result = await memberShipsTransactions.updateAsync(req.body);
+      res.json(result);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
 module.exports = router;
