@@ -16,4 +16,13 @@ router.get('/references', tokenControl, referencesValidator.limitAndOffset, asyn
     }
 });
 
+router.post('/references', tokenControl, referencesValidator.insert, async (req, res) => {
+    try {
+        const result = await referencesTransactions.insertAsync(req.body);
+        res.json(result);
+    } catch (error) {
+        res.status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR).send(error.message);
+    }
+});
+
 module.exports = router;
