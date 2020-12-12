@@ -29,6 +29,39 @@ class PersonalInformationTransactions {
       );
     });
   }
+
+  updateAsync(values) {
+    return new Promise((resolve, reject) => {
+      this._datacontext.query(
+        `UPDATE tblPersonalInformation SET ?`,
+        [values],
+        (error, result) => {
+          if (!error) {
+            if (result.affectedRows)
+              resolve("Project information has been updated.");
+            else
+              reject({
+                status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message:
+                  "An error occurred while updating project information.",
+              });
+          } else {
+            reject(
+              error.errno == 1062
+                ? {
+                    status: HttpStatusCode.CONFLICT,
+                    message: "There is such Project.",
+                  }
+                : {
+                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                    message: error.message,
+                  }
+            );
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = PersonalInformationTransactions;

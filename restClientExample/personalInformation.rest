@@ -2,3 +2,24 @@ GET {{baseUrl}}/personal-information HTTP/1.1
 Content-Type: application/json
 token: {{token}}
 
+###
+
+PUT {{baseUrl}}/personal-information HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "FirstName": "İsmet",
+    "LastName": "Kizgin",
+    "Address": "Turgutlu / Manisa",
+    "Phone": "+90 (555) 555 55 55",
+    "Gender": true,
+    "DateOfBirth": "1998-01-19T22:00:00.000Z",
+    "MaritalStatus": "Bekar",
+    "MilitaryStatus": "Tecilli",
+    "Nationality": "T.C.",
+    "DriversLicense": "B",
+    "EmailAddress": "info@ismetkizgin.com",
+    "Website": "ismetkizgin.com",
+    "Description": "Özgüvensiz insan asla mesleğinde başaralı olamaz sözünü benimsemiş biri olarak mesleğimde her zaman\r\nözgüvenim sonsuzdur ve bunu borçlu olduğum tek şeyin öğrenme hırsım olduğunu söyleyebilirim. Kariyer\r\nhedeflerimden biri kendimi Yapay Zekâ ve Veri Bilimi üzerinde geliştirerek ortaya güzel ürünler koymak.\r\nOrtaya koymuş olduğum ürünler ile tarihte bir yer edinme hedefim var... Bugüne kadar geliştirmiş\r\nolduğum projelerimin içine yapay zekâ eklemesi yaparak kendimi geliştirmeye çalışıyorum."
+}
