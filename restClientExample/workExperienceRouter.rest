@@ -1,3 +1,33 @@
 GET {{baseUrl}}/work-experience HTTP/1.1
 Content-Type: application/json
 token: {{token}}
+
+
+###
+
+
+POST {{baseUrl}}/work-experience HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "CompanyName": "Can Software",
+    "Title": "Full Stack Developer",
+    "StartDateOfWork": "2010-05-22"
+}
+
+
+###
+
+
+PUT  {{baseUrl}}/work-experience HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "Id": "11",
+    "CompanyName": "Can Software",
+    "Title": "Full Stack Developer",
+    "StartDateOfWork": "2010-05-22",
+    "DismissalDate": "2014-05-22"
+}
