@@ -40,4 +40,13 @@ router.put('/work-experience', tokenControl, workExperienceValidator.update, asy
     }
 });
 
+router.delete('/work-experience', tokenControl, workExperienceValidator.bodyId, async (req, res) => {
+    try {
+        const result = await workExperienceTransactions.deleteAsync(req.body);
+        res.json(result);
+    } catch (error) {
+        res.status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR).send(error.message);
+    }
+});
+
 module.exports = router;
