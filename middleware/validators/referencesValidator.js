@@ -17,6 +17,20 @@ class ReferencesValidator extends CommonValidator {
             res.status(HttpStatusCode.EXPECTATION_FAILED).send('Must have correct data entry.');
         }
     }
+
+    static async update(req, res, next) {
+        try {
+            await joi.object({
+                Id: joi.number().required(),
+                Name: joi.string().max(200).required(),
+                Phone: joi.string().max(25).required(),
+                CompanyName: joi.string()
+            }).validateAsync(req.body);
+            next();
+        } catch (error) {
+            res.status(HttpStatusCode.EXPECTATION_FAILED).send('Must have correct data entry.');
+        }
+    }
 }
 
 module.exports = ReferencesValidator;
