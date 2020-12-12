@@ -1,5 +1,4 @@
 const router = require("express")();
-const jwt = require("jsonwebtoken");
 const TransactionsFactory = require("../database/transactionFactory");
 const { validators, verifyToken } = require("../middleware");
 const referencesTransactions = TransactionsFactory.creating("referencesTransactions");
@@ -36,5 +35,18 @@ router.put('/references', tokenControl, referencesValidator.update, async (req, 
             res.status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR).send(error.message);
     }
 });
+
+router.delete('/references', tokenControl, referencesValidator.bodyId, async (req, res) => {
+    try {
+        const result = await referencesTransactions.deleteAsync(req.body);
+        res.json(result);
+    } catch (error) {
+        if (error.status == 404)
+            res.status(HttpStatusCode.UNAUTHORIZED).send('Reference is not registered in the system.');
+        else
+            res.status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR).send(error.message);
+    }
+});
+
 
 module.exports = router;

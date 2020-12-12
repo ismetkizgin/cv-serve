@@ -9,7 +9,7 @@ class ProjectTransactions {
 
     listAsync(values) {
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`SELECT * FROM tblproject ${sqlHelper.getWhere(values)} ORDER BY id ASC ${sqlHelper.getLimitOffset(values)}`, (error, result) => {
+            this._datacontext.query(`SELECT * FROM tblProject ${sqlHelper.getWhere(values)} ORDER BY id ASC ${sqlHelper.getLimitOffset(values)}`, (error, result) => {
                 if (!error) {
                     if (result.length > 0)
                         resolve(result);
@@ -25,7 +25,7 @@ class ProjectTransactions {
 
     insertAsync(values) {
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`INSERT INTO tblproject SET ?`, values, (error, result) => {
+            this._datacontext.query(`INSERT INTO tblProject SET ?`, values, (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
                         resolve('Project registration has taken place.');
@@ -41,7 +41,7 @@ class ProjectTransactions {
 
     updateAsync(values) {
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`UPDATE tblproject SET ? WHERE Id=?`, [values, values.Id], (error, result) => {
+            this._datacontext.query(`UPDATE tblProject SET ? WHERE Id=?`, [values, values.Id], (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
                         resolve('Project information has been updated.');
@@ -57,7 +57,7 @@ class ProjectTransactions {
 
     deleteAsync(values) {
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`DELETE FROM tblproject ${sqlHelper.getWhere(values)}`, (error, result) => {
+            this._datacontext.query(`DELETE FROM tblProject ${sqlHelper.getWhere(values)}`, (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
                         resolve('Deletion succeeded.');

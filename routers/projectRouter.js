@@ -1,5 +1,4 @@
 const router = require("express")();
-const jwt = require("jsonwebtoken");
 const TransactionsFactory = require("../database/transactionFactory");
 const { validators, verifyToken } = require("../middleware");
 const projectTransactions = TransactionsFactory.creating("projectTransactions");
