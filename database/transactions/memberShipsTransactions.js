@@ -7,13 +7,15 @@ class PersonalInformationTransactions {
     this._datacontext = mysqlDataContext.connection();
   }
 
-  listAsync() {
+  listAsync(values) {
     return new Promise((resolve, reject) => {
       this._datacontext.query(
-        `SELECT * FROM tblMemberShips`,
+        `SELECT * FROM tblMemberShips ${sqlHelper.getWhere(
+          values
+        )} ORDER BY id ASC ${sqlHelper.getLimitOffset(values)}`,
         (error, result) => {
           if (!error) {
-            if (result.length > 0) resolve(result[0]);
+            if (result.length > 0) resolve(result);
             else
               reject({
                 status: HttpStatusCode.NOT_FOUND,
@@ -24,6 +26,38 @@ class PersonalInformationTransactions {
               status: HttpStatusCode.INTERNAL_SERVER_ERROR,
               message: error.message
             });
+          }
+        }
+      );
+    });
+  }
+
+  insertAsync(values) {
+    return new Promise((resolve, reject) => {
+      this._datacontext.query(
+        `INSERT INTO tblMemberShips SET ?`,
+        values,
+        (error, result) => {
+          if (!error) {
+            if (result.affectedRows)
+              resolve('Member Ships registration has taken place.');
+            else
+              reject({
+                status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: 'Error while registering member ships!'
+              });
+          } else {
+            reject(
+              error.errno == 1062
+                ? {
+                    status: HttpStatusCode.CONFLICT,
+                    message: 'There is such a member ships.'
+                  }
+                : {
+                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                    message: error.message
+                  }
+            );
           }
         }
       );
