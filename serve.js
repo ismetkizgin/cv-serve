@@ -1,9 +1,9 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const routers = require("./routers");
+const routers = require('./routers');
 
-app.get("/", function (req, res) {
-  res.json("CL Serve Project");
+app.get('/', function (req, res) {
+  res.json('CL Serve Project');
 });
 
 app.use(routers.authRouter);
@@ -12,9 +12,10 @@ app.use(routers.projectRouter);
 app.use(routers.referencesRouter);
 app.use(routers.personalInformationRouter);
 app.use(routers.workExperienceRouter);
+app.use(routers.memberShipsRouter);
 
 app.use((req, res, next) => {
-  res.send("404 NOT FOUND");
+  res.send('404 NOT FOUND');
 });
 
 module.exports = app;
