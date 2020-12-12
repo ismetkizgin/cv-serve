@@ -7,6 +7,7 @@ app.get("/", function (req, res) {
 });
 
 app.use(routers.authRouter);
+app.use(routers.userRouter);
 app.use(routers.projectRouter);
 app.use(routers.referencesRouter);
 
