@@ -1,3 +1,16 @@
 GET {{baseUrl}}/project HTTP/1.1
 Content-Type: application/json
 token: {{token}}
+
+
+###
+
+
+POST {{baseUrl}}/project HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "ProjectName": "CV-Project Admin",
+    "Description": "We are adding front-end variables."
+}

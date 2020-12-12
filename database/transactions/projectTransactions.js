@@ -23,6 +23,22 @@ class ProjectTransactions {
         });
     }
 
+    insertAsync(values) {
+        return new Promise((resolve, reject) => {
+            this._datacontext.query(`INSERT INTO tblproject SET ?`, values, (error, result) => {
+                if (!error) {
+                    if (result.affectedRows)
+                        resolve('Project registration has taken place.');
+                    else
+                        reject({ status: HttpStatusCode.INTERNAL_SERVER_ERROR, message: 'Error while registering project !' });
+                }
+                else {
+                    reject(error.errno == 1062 ? { status: HttpStatusCode.CONFLICT, message: 'There is such a project.' } : { status: HttpStatusCode.INTERNAL_SERVER_ERROR, message: error.message });
+                }
+            });
+        });
+    }
+
 }
 
 module.exports = ProjectTransactions;
