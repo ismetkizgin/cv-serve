@@ -17,7 +17,8 @@ class PersonalInformationTransactions {
             else
               reject({
                 status: HttpStatusCode.NOT_FOUND,
-                message: 'No project registered to the system was found.'
+                message:
+                  'No personel information registered to the system was found.'
               });
           } else {
             reject({
@@ -38,11 +39,12 @@ class PersonalInformationTransactions {
         (error, result) => {
           if (!error) {
             if (result.affectedRows)
-              resolve('Project information has been updated.');
+              resolve('Personel information information has been updated.');
             else
               reject({
                 status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                message: 'An error occurred while updating project information.'
+                message:
+                  'An error occurred while updating personal information.'
               });
           } else {
             reject({
