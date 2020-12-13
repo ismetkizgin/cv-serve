@@ -17,4 +17,15 @@ router.get('/grammar', grammarValidator.limitAndOffset, async (req, res) => {
   }
 });
 
+router.get('/grammar/:Id', grammarValidator.paramId, async (req, res) => {
+  try {
+    const result = await grammarTransactions.listAsync(req.params);
+    res.json(result[0]);
+  } catch (error) {
+    res
+      .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+      .send(error.message);
+  }
+});
+
 module.exports = router;
