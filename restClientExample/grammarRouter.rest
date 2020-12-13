@@ -23,3 +23,19 @@ token: {{token}}
     "writingLevel": "Orta Seviye",
     "SpeakingLevel": "Orta Seviye"
 }
+
+
+###
+
+
+PUT {{baseUrl}}/grammar HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "Id": "1",
+    "LanguageName": "Türkçe",
+    "ReadingLevel": "Orta Seviye",
+    "writingLevel": "Orta Seviye",
+    "SpeakingLevel": "Orta Seviye"
+}

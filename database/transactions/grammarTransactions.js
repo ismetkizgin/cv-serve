@@ -56,6 +56,31 @@ class PersonalInformationTransactions {
       );
     });
   }
+
+  updateAsync(values) {
+    return new Promise((resolve, reject) => {
+      this._datacontext.query(
+        `UPDATE tblGrammar SET ? WHERE Id=?`,
+        [values, values.Id],
+        (error, result) => {
+          if (!error) {
+            if (result.affectedRows)
+              resolve('Grammar information has been updated.');
+            else
+              reject({
+                status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: 'An error occurred while updating grammar information.'
+              });
+          } else {
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = PersonalInformationTransactions;
