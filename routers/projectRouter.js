@@ -1,13 +1,13 @@
-const router = require("express")();
-const TransactionsFactory = require("../database/transactionFactory");
-const { validators, verifyToken } = require("../middleware");
-const projectTransactions = TransactionsFactory.creating("projectTransactions");
+const router = require('express')();
+const TransactionsFactory = require('../database/transactionFactory');
+const { validators, verifyToken } = require('../middleware');
+const projectTransactions = TransactionsFactory.creating('projectTransactions');
 const tokenControl = verifyToken.tokenControl;
 const projectValidator = validators.projectValidator;
-const HttpStatusCode = require("http-status-codes");
+const HttpStatusCode = require('http-status-codes');
 
 router.get(
-  "/project",
+  '/project',
   tokenControl,
   projectValidator.limitAndOffset,
   async (req, res) => {
@@ -23,7 +23,7 @@ router.get(
 );
 
 router.get(
-  "/project/:Id",
+  '/project/:Id',
   tokenControl,
   projectValidator.paramId,
   async (req, res) => {
@@ -39,7 +39,7 @@ router.get(
 );
 
 router.post(
-  "/project",
+  '/project',
   tokenControl,
   projectValidator.insert,
   async (req, res) => {
@@ -55,7 +55,7 @@ router.post(
 );
 
 router.put(
-  "/project",
+  '/project',
   tokenControl,
   projectValidator.update,
   async (req, res) => {
@@ -71,7 +71,7 @@ router.put(
 );
 
 router.delete(
-  "/project",
+  '/project',
   tokenControl,
   projectValidator.bodyId,
   async (req, res) => {

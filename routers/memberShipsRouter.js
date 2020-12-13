@@ -72,4 +72,20 @@ router.put(
   }
 );
 
+router.delete(
+  '/member-ships',
+  tokenControl,
+  memberShipsValidator.bodyId,
+  async (req, res) => {
+    try {
+      const result = await memberShipsTransactions.deleteAsync(req.body);
+      res.json(result);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
 module.exports = router;
