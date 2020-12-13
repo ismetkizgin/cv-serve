@@ -54,4 +54,20 @@ router.post(
   }
 );
 
+router.put(
+  '/hobbies',
+  tokenControl,
+  hobbiesValidator.update,
+  async (req, res) => {
+    try {
+      const result = await hobbiesTransaction.updateAsync(req.body);
+      res.json(result);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
 module.exports = router;

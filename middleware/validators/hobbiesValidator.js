@@ -19,6 +19,21 @@ class HobbiesValidator extends CommonValidator {
         .send('Must have correct data entry.');
     }
   }
+  static async update(req, res, next) {
+    try {
+      await joi
+        .object({
+          Id: joi.number().required(),
+          HobbyName: joi.string().max(100).required()
+        })
+        .validateAsync(req.body);
+      next();
+    } catch (error) {
+      res
+        .status(HttpStatusCode.EXPECTATION_FAILED)
+        .send('Must have correct data entry.');
+    }
+  }
 }
 
 module.exports = HobbiesValidator;

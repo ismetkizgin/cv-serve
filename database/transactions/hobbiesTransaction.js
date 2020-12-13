@@ -63,6 +63,38 @@ class PersonalInformationTransactions {
       );
     });
   }
+
+  updateAsync(values) {
+    return new Promise((resolve, reject) => {
+      this._datacontext.query(
+        `UPDATE tblHobbies SET ? WHERE Id=?`,
+        [values, values.Id],
+        (error, result) => {
+          if (!error) {
+            if (result.affectedRows)
+              resolve('Hobby information has been updated.');
+            else
+              reject({
+                status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: 'An error occurred while updating hobby information.'
+              });
+          } else {
+            reject(
+              error.errno == 1062
+                ? {
+                    status: HttpStatusCode.CONFLICT,
+                    message: 'There is such hobby.'
+                  }
+                : {
+                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                    message: error.message
+                  }
+            );
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = PersonalInformationTransactions;
