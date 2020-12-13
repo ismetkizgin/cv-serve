@@ -14,6 +14,7 @@ app.use(routers.personalInformationRouter);
 app.use(routers.workExperienceRouter);
 app.use(routers.memberShipsRouter);
 app.use(routers.hobbiesRouter);
+app.use(routers.grammarRouter);
 app.use(routers.documentationRouter);
 
 app.use((req, res, next) => {
