@@ -24,4 +24,19 @@ router.get(
   }
 );
 
+router.get(
+  '/documentation/:Id',
+  documentationValidator.paramId,
+  async (req, res) => {
+    try {
+      const result = await documentationTransactions.listAsync(req.params);
+      res.json(result[0]);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
 module.exports = router;
