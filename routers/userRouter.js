@@ -1,13 +1,13 @@
-const router = require("express")();
-const TransactionsFactory = require("../database/transactionFactory");
-const { validators, verifyToken } = require("../middleware");
-const userTransactions = TransactionsFactory.creating("userTransactions");
+const router = require('express')();
+const TransactionsFactory = require('../database/transactionFactory');
+const { validators, verifyToken } = require('../middleware');
+const userTransactions = TransactionsFactory.creating('userTransactions');
 const userValidator = validators.userValidator;
 const tokenControl = verifyToken.tokenControl;
-const HttpStatusCode = require("http-status-codes");
+const HttpStatusCode = require('http-status-codes');
 
 router.get(
-  "/user",
+  '/user',
   tokenControl,
   userValidator.limitAndOffset,
   async (req, res) => {
@@ -23,7 +23,7 @@ router.get(
 );
 
 router.get(
-  "/user/:Id",
+  '/user/:Id',
   tokenControl,
   userValidator.paramId,
   async (req, res) => {
@@ -38,7 +38,7 @@ router.get(
   }
 );
 
-router.delete("/user", tokenControl, userValidator.bodyId, async (req, res) => {
+router.delete('/user', tokenControl, userValidator.bodyId, async (req, res) => {
   try {
     const result = await userTransactions.deleteAsync(req.body);
     res.json(result);
@@ -47,7 +47,7 @@ router.delete("/user", tokenControl, userValidator.bodyId, async (req, res) => {
       res
         .status(HttpStatusCode.UNAUTHORIZED)
         .send(
-          "User is not registered in the system or unauthorized operation."
+          'User is not registered in the system or unauthorized operation.'
         );
     else
       res
@@ -56,7 +56,7 @@ router.delete("/user", tokenControl, userValidator.bodyId, async (req, res) => {
   }
 });
 
-router.put("/user", tokenControl, userValidator.update, async (req, res) => {
+router.put('/user', tokenControl, userValidator.update, async (req, res) => {
   try {
     const result = await userTransactions.updateAsync(req.body);
     res.json(result);
@@ -67,7 +67,7 @@ router.put("/user", tokenControl, userValidator.update, async (req, res) => {
   }
 });
 
-router.post("/user", tokenControl, userValidator.insert, async (req, res) => {
+router.post('/user', tokenControl, userValidator.insert, async (req, res) => {
   try {
     const result = await userTransactions.insertAsync(req.body);
     res.json(result);

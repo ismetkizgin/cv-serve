@@ -1,6 +1,6 @@
-const joi = require("joi");
-const HttpStatusCode = require("http-status-codes");
-const CommonValidator = require("./commonValidator");
+const joi = require('joi');
+const HttpStatusCode = require('http-status-codes');
+const CommonValidator = require('./commonValidator');
 
 class UserValidator extends CommonValidator {
   constructor() {}
@@ -13,8 +13,8 @@ class UserValidator extends CommonValidator {
           UserName: joi
             .string()
             .max(100)
-            .pattern(new RegExp("^[A-Za-zÇçÖöŞşÜüĞğİı ]+$")),
-          UserEmail: joi.string().max(100).email(),
+            .pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')),
+          UserEmail: joi.string().max(100).email()
         })
         .validateAsync(req.body);
       next();
@@ -22,7 +22,7 @@ class UserValidator extends CommonValidator {
       console.log(error.message);
       res
         .status(HttpStatusCode.EXPECTATION_FAILED)
-        .send("Must have correct data entry.");
+        .send('Must have correct data entry.');
     }
   }
 
@@ -33,10 +33,10 @@ class UserValidator extends CommonValidator {
           UserName: joi
             .string()
             .max(100)
-            .pattern(new RegExp("^[A-Za-zÇçÖöŞşÜüĞğİı ]+$"))
+            .pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$'))
             .required(),
           UserEmail: joi.string().max(100).email().required(),
-          UserPassword: joi.string().max(99).required(),
+          UserPassword: joi.string().max(99).required()
         })
         .validateAsync(req.body);
       next();
@@ -44,7 +44,7 @@ class UserValidator extends CommonValidator {
       console.log(error.message);
       res
         .status(HttpStatusCode.EXPECTATION_FAILED)
-        .send("Must have correct data entry.");
+        .send('Must have correct data entry.');
     }
   }
 }

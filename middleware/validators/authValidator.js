@@ -1,5 +1,5 @@
-const joi = require("joi");
-const HttpStatusCode = require("http-status-codes");
+const joi = require('joi');
+const HttpStatusCode = require('http-status-codes');
 
 class AuthValidator {
   constructor() {}
@@ -9,14 +9,14 @@ class AuthValidator {
       await joi
         .object({
           UserEmail: joi.string().email().max(100).required(),
-          UserPassword: joi.string().max(99).required(),
+          UserPassword: joi.string().max(99).required()
         })
         .validateAsync(req.body);
       next();
     } catch (error) {
       res
         .status(HttpStatusCode.EXPECTATION_FAILED)
-        .send("Must have correct data entry.");
+        .send('Must have correct data entry.');
     }
   }
 
@@ -24,14 +24,14 @@ class AuthValidator {
     try {
       await joi
         .object({
-          UserPassword: joi.string().max(99).required(),
+          UserPassword: joi.string().max(99).required()
         })
         .validateAsync(req.body);
       next();
     } catch (error) {
       res
         .status(HttpStatusCode.EXPECTATION_FAILED)
-        .send("Must have correct data entry.");
+        .send('Must have correct data entry.');
     }
   }
 
@@ -42,15 +42,15 @@ class AuthValidator {
           UserName: joi
             .string()
             .min(3)
-            .pattern(new RegExp("^[A-Za-zÇçÖöŞşÜüĞğİı ]+$")),
-          UserPassword: joi.string().max(99).required(),
+            .pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')),
+          UserPassword: joi.string().max(99).required()
         })
         .validateAsync(req.body);
       next();
     } catch (error) {
       res
         .status(HttpStatusCode.EXPECTATION_FAILED)
-        .send("Must have correct data entry.");
+        .send('Must have correct data entry.');
     }
   }
 
@@ -59,14 +59,14 @@ class AuthValidator {
       await joi
         .object({
           UserPassword: joi.string().max(99).required(),
-          UserNewPassword: joi.string().max(99).required(),
+          UserNewPassword: joi.string().max(99).required()
         })
         .validateAsync(req.body);
       next();
     } catch (error) {
       res
         .status(HttpStatusCode.EXPECTATION_FAILED)
-        .send("Must have correct data entry.");
+        .send('Must have correct data entry.');
     }
   }
 
@@ -74,14 +74,14 @@ class AuthValidator {
     try {
       await joi
         .object({
-          UserPassword: joi.string().max(99).required(),
+          UserPassword: joi.string().max(99).required()
         })
         .validateAsync(req.body);
       next();
     } catch (error) {
       res
         .status(HttpStatusCode.EXPECTATION_FAILED)
-        .send("Must have correct data entry.");
+        .send('Must have correct data entry.');
     }
   }
 }

@@ -1,6 +1,6 @@
-const joi = require("joi");
-const HttpStatusCode = require("http-status-codes");
-const CommonValidator = require("./commonValidator");
+const joi = require('joi');
+const HttpStatusCode = require('http-status-codes');
+const CommonValidator = require('./commonValidator');
 
 class PersonalInformationValidator extends CommonValidator {
   constructor() {}
@@ -21,7 +21,7 @@ class PersonalInformationValidator extends CommonValidator {
           DriversLicense: joi.string().max(25).required(),
           EmailAddress: joi.string().max(150).required(),
           Website: joi.string().max(150).required(),
-          Description: joi.string().required(),
+          Description: joi.string().required()
         })
         .validateAsync(req.body);
       next();
@@ -29,7 +29,7 @@ class PersonalInformationValidator extends CommonValidator {
       console.error(error);
       res
         .status(HttpStatusCode.EXPECTATION_FAILED)
-        .send("Must have correct data entry.");
+        .send('Must have correct data entry.');
     }
   }
 }

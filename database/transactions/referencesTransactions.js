@@ -47,17 +47,10 @@ class ProjectTransactions {
                 message: 'Error while registering references !'
               });
           } else {
-            reject(
-              error.errno == 1062
-                ? {
-                    status: HttpStatusCode.CONFLICT,
-                    message: 'There is such a References.'
-                  }
-                : {
-                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                    message: error.message
-                  }
-            );
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
           }
         }
       );
@@ -80,17 +73,10 @@ class ProjectTransactions {
                   'An error occurred while updating references information.'
               });
           } else {
-            reject(
-              error.errno == 1062
-                ? {
-                    status: HttpStatusCode.CONFLICT,
-                    message: 'There is such references.'
-                  }
-                : {
-                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                    message: error.message
-                  }
-            );
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
           }
         }
       );

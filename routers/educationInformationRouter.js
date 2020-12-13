@@ -50,8 +50,7 @@ router.post(
   async (req, res) => {
     try {
       req.body.EntryDate = new Date(req.body.EntryDate);
-      if (req.body.EndDate) 
-        req.body.EndDate = new Date(req.body.EndDate);
+      if (req.body.EndDate) req.body.EndDate = new Date(req.body.EndDate);
       const result = await educationInformationTransactions.insertAsync(
         req.body
       );

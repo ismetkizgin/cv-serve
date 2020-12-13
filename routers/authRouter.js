@@ -1,22 +1,22 @@
-const router = require("express")();
-const jwt = require("jsonwebtoken");
-const TransactionsFactory = require("../database/transactionFactory");
-const { validators, verifyToken } = require("../middleware");
-const userTransactions = TransactionsFactory.creating("userTransactions");
+const router = require('express')();
+const jwt = require('jsonwebtoken');
+const TransactionsFactory = require('../database/transactionFactory');
+const { validators, verifyToken } = require('../middleware');
+const userTransactions = TransactionsFactory.creating('userTransactions');
 const authValidator = validators.authValidator;
 const tokenControl = verifyToken.tokenControl;
-const HttpStatusCode = require("http-status-codes");
+const HttpStatusCode = require('http-status-codes');
 
-router.post("/login", authValidator.login, async (req, res) => {
+router.post('/login', authValidator.login, async (req, res) => {
   try {
     const result = await userTransactions.loginAsync(req.body);
     const payload = {
       UserID: result.Id,
       CompanyID: result.CompanyID,
-      UserTypeName: result.UserTypeName,
+      UserTypeName: result.UserTypeName
     };
-    const token = jwt.sign(payload, req.app.get("api_key"), {
-      expiresIn: "7d",
+    const token = jwt.sign(payload, req.app.get('api_key'), {
+      expiresIn: '7d'
     });
     res.json({ result, token });
   } catch (error) {
@@ -27,13 +27,13 @@ router.post("/login", authValidator.login, async (req, res) => {
 });
 
 router.delete(
-  "/my-account",
+  '/my-account',
   tokenControl,
   authValidator.delete,
   async (req, res) => {
     try {
       const result = await userTransactions.deleteAsync({
-        Id: req.decode.UserID,
+        Id: req.decode.UserID
       });
       res.json(result);
     } catch (error) {
@@ -45,14 +45,14 @@ router.delete(
 );
 
 router.put(
-  "/my-account",
+  '/my-account',
   tokenControl,
   authValidator.update,
   async (req, res) => {
     try {
       await userTransactions.passwordControlAsync({
         Id: req.decode.UserID,
-        UserPassword: req.body.UserPassword,
+        UserPassword: req.body.UserPassword
       });
       const result = await userTransactions.updateAsync(
         Object.assign(req.body, { Id: req.decode.UserID })
@@ -67,7 +67,7 @@ router.put(
 );
 
 router.put(
-  "/change-password",
+  '/change-password',
   tokenControl,
   authValidator.changePassword,
   async (req, res) => {
@@ -85,14 +85,14 @@ router.put(
 );
 
 router.post(
-  "/password-control",
+  '/password-control',
   tokenControl,
   authValidator.passwordControl,
   async (req, res) => {
     try {
       const result = await userTransactions.passwordControlAsync({
         Id: req.decode.UserID,
-        UserPassword: req.body.UserPassword,
+        UserPassword: req.body.UserPassword
       });
       res.json(result);
     } catch (error) {
@@ -104,7 +104,7 @@ router.post(
   }
 );
 
-router.get("/token-decode", tokenControl, async (req, res) => {
+router.get('/token-decode', tokenControl, async (req, res) => {
   res.json(req.decode);
 });
 

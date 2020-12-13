@@ -1,7 +1,7 @@
 class DataContext {
-    constructor() { }
+  constructor() {}
 
-    connection() { }
+  connection() {}
 }
 
 module.exports = DataContext;

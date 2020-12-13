@@ -1,6 +1,6 @@
-const { mysqlDataContext } = require("../dataContexts");
-const HttpStatusCode = require("http-status-codes");
-const { sqlHelper } = require("../../utils");
+const { mysqlDataContext } = require('../dataContexts');
+const HttpStatusCode = require('http-status-codes');
+const { sqlHelper } = require('../../utils');
 
 class UserTransactions {
   constructor() {
@@ -20,12 +20,12 @@ class UserTransactions {
             } else
               reject({
                 status: HttpStatusCode.NOT_FOUND,
-                message: "There is no such user !",
+                message: 'There is no such user !'
               });
           } else
             reject({
               status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-              message: error.message,
+              message: error.message
             });
         }
       );
@@ -44,12 +44,12 @@ class UserTransactions {
             else
               reject({
                 status: HttpStatusCode.NOT_FOUND,
-                message: "No user registered to the system was found.",
+                message: 'No user registered to the system was found.'
               });
           } else {
             reject({
               status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-              message: error.message,
+              message: error.message
             });
           }
         }
@@ -65,24 +65,17 @@ class UserTransactions {
         (error, result) => {
           if (!error) {
             if (result.affectedRows)
-              resolve("User registration has taken place.");
+              resolve('User registration has taken place.');
             else
               reject({
                 status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                message: "Error while registering user !",
+                message: 'Error while registering user !'
               });
           } else {
-            reject(
-              error.errno == 1062
-                ? {
-                    status: HttpStatusCode.CONFLICT,
-                    message: "There is such user.",
-                  }
-                : {
-                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                    message: error.message,
-                  }
-            );
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
           }
         }
       );
@@ -97,24 +90,17 @@ class UserTransactions {
         (error, result) => {
           if (!error) {
             if (result.affectedRows)
-              resolve("User information has been updated.");
+              resolve('User information has been updated.');
             else
               reject({
                 status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                message: "An error occurred while updating user information.",
+                message: 'An error occurred while updating user information.'
               });
           } else {
-            reject(
-              error.errno == 1062
-                ? {
-                    status: HttpStatusCode.CONFLICT,
-                    message: "There is such user.",
-                  }
-                : {
-                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                    message: error.message,
-                  }
-            );
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
           }
         }
       );
@@ -127,16 +113,16 @@ class UserTransactions {
         `DELETE FROM tblUser ${sqlHelper.getWhere(values)}`,
         (error, result) => {
           if (!error) {
-            if (result.affectedRows) resolve("Deletion succeeded.");
+            if (result.affectedRows) resolve('Deletion succeeded.');
             else
               reject({
                 status: HttpStatusCode.GONE,
-                message: "There is no such user.",
+                message: 'There is no such user.'
               });
           } else {
             reject({
               status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-              message: error.message,
+              message: error.message
             });
           }
         }
@@ -155,12 +141,12 @@ class UserTransactions {
             else
               reject({
                 status: HttpStatusCode.BAD_REQUEST,
-                message: "User password does not match !",
+                message: 'User password does not match !'
               });
           } else {
             reject({
               status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-              message: error.message,
+              message: error.message
             });
           }
         }
@@ -176,16 +162,16 @@ class UserTransactions {
         (error, result) => {
           if (!error) {
             if (result.affectedRows)
-              resolve("The user password has been changed successfully.");
+              resolve('The user password has been changed successfully.');
             else
               reject({
                 status: HttpStatusCode.BAD_REQUEST,
-                message: "User password does not match.",
+                message: 'User password does not match.'
               });
           } else {
             reject({
               status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-              message: error.message,
+              message: error.message
             });
           }
         }

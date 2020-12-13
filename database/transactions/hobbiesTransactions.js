@@ -47,17 +47,10 @@ class PersonalInformationTransactions {
                 message: 'Error while registering hobby!'
               });
           } else {
-            reject(
-              error.errno == 1062
-                ? {
-                    status: HttpStatusCode.CONFLICT,
-                    message: 'There is such a hobby.'
-                  }
-                : {
-                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                    message: error.message
-                  }
-            );
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
           }
         }
       );
@@ -79,17 +72,10 @@ class PersonalInformationTransactions {
                 message: 'An error occurred while updating hobby information.'
               });
           } else {
-            reject(
-              error.errno == 1062
-                ? {
-                    status: HttpStatusCode.CONFLICT,
-                    message: 'There is such hobby.'
-                  }
-                : {
-                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                    message: error.message
-                  }
-            );
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
           }
         }
       );

@@ -1,6 +1,6 @@
-const { mysqlDataContext } = require("../dataContexts");
-const HttpStatusCode = require("http-status-codes");
-const { sqlHelper } = require("../../utils");
+const { mysqlDataContext } = require('../dataContexts');
+const HttpStatusCode = require('http-status-codes');
+const { sqlHelper } = require('../../utils');
 
 class PersonalInformationTransactions {
   constructor() {
@@ -17,12 +17,12 @@ class PersonalInformationTransactions {
             else
               reject({
                 status: HttpStatusCode.NOT_FOUND,
-                message: "No project registered to the system was found.",
+                message: 'No project registered to the system was found.'
               });
           } else {
             reject({
               status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-              message: error.message,
+              message: error.message
             });
           }
         }
@@ -38,25 +38,17 @@ class PersonalInformationTransactions {
         (error, result) => {
           if (!error) {
             if (result.affectedRows)
-              resolve("Project information has been updated.");
+              resolve('Project information has been updated.');
             else
               reject({
                 status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                message:
-                  "An error occurred while updating project information.",
+                message: 'An error occurred while updating project information.'
               });
           } else {
-            reject(
-              error.errno == 1062
-                ? {
-                    status: HttpStatusCode.CONFLICT,
-                    message: "There is such Project.",
-                  }
-                : {
-                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                    message: error.message,
-                  }
-            );
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
           }
         }
       );

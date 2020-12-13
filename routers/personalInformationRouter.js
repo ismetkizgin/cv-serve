@@ -1,14 +1,14 @@
-const router = require("express")();
-const TransactionsFactory = require("../database/transactionFactory");
-const { validators, verifyToken } = require("../middleware");
+const router = require('express')();
+const TransactionsFactory = require('../database/transactionFactory');
+const { validators, verifyToken } = require('../middleware');
 const personalInformationTransactions = TransactionsFactory.creating(
-  "personalInformationTransactions"
+  'personalInformationTransactions'
 );
 const tokenControl = verifyToken.tokenControl;
 const personalInformationValidator = validators.personalInformationValidator;
-const HttpStatusCode = require("http-status-codes");
+const HttpStatusCode = require('http-status-codes');
 
-router.get("/personal-information", async (req, res) => {
+router.get('/personal-information', async (req, res) => {
   try {
     const result = await personalInformationTransactions.listAsync(req.query);
     res.json(result);
@@ -20,7 +20,7 @@ router.get("/personal-information", async (req, res) => {
 });
 
 router.put(
-  "/personal-information",
+  '/personal-information',
   tokenControl,
   personalInformationValidator.update,
   async (req, res) => {

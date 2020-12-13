@@ -23,20 +23,16 @@ router.get(
   }
 );
 
-router.get(
-  '/references/:Id',
-  referencesValidator.paramId,
-  async (req, res) => {
-    try {
-      const result = await referencesTransactions.listAsync(req.params);
-      res.json(result[0]);
-    } catch (error) {
-      res
-        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
-        .send(error.message);
-    }
+router.get('/references/:Id', referencesValidator.paramId, async (req, res) => {
+  try {
+    const result = await referencesTransactions.listAsync(req.params);
+    res.json(result[0]);
+  } catch (error) {
+    res
+      .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+      .send(error.message);
   }
-);
+});
 
 router.post(
   '/references',
