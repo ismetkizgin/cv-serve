@@ -10,7 +10,6 @@ const HttpStatusCode = require('http-status-codes');
 
 router.get(
   '/member-ships',
-  tokenControl,
   memberShipsValidator.limitAndOffset,
   async (req, res) => {
     try {
@@ -26,7 +25,6 @@ router.get(
 
 router.get(
   '/member-ships/:Id',
-  tokenControl,
   memberShipsValidator.paramId,
   async (req, res) => {
     try {

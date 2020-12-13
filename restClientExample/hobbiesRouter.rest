@@ -34,3 +34,15 @@ token: {{token}}
     "Id": 1,
     "HobbyName": "PC Gaming"
 }
+
+
+###
+
+
+DELETE {{baseUrl}}/hobbies HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "Id": 11
+}

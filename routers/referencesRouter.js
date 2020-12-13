@@ -10,7 +10,6 @@ const HttpStatusCode = require('http-status-codes');
 
 router.get(
   '/references',
-  tokenControl,
   referencesValidator.limitAndOffset,
   async (req, res) => {
     try {
@@ -26,7 +25,6 @@ router.get(
 
 router.get(
   '/references/:Id',
-  tokenControl,
   referencesValidator.paramId,
   async (req, res) => {
     try {
