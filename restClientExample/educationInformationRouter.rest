@@ -1,0 +1,56 @@
+GET {{baseUrl}}/education-info HTTP/1.1
+Content-Type:  application/json
+token: {{token}}
+
+
+###
+
+
+GET {{baseUrl}}/education-info/1 HTTP/1.1
+Content-Type:  application/json
+token: {{token}}
+
+
+###
+
+
+POST {{baseUrl}}/education-info HTTP/1.1
+Content-Type:  application/json
+token: {{token}}
+
+{
+    "SchoolName": "MCBU HFTTF",
+    "SchoolStatus": "4.Sınıf",
+    "SectionName": "Yazılım Mühendisliği",
+    "EntryDate": "2010-05-22",
+    "EndDate": "2014-05-22"
+}
+
+
+###
+
+
+PUT {{baseUrl}}/education-info HTTP/1.1
+Content-Type:  application/json
+token: {{token}}
+
+{
+    "Id": 1,
+    "SchoolName": "MCBU HFTTF",
+    "SchoolStatus": "3.Sınıf",
+    "SectionName": "Yazılım Mühendisliği",
+    "EntryDate": "2010-05-22",
+    "EndDate": "2014-05-22"
+}
+
+
+###
+
+
+DELETE {{baseUrl}}/education-info HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "Id": 21
+}

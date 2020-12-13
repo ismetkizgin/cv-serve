@@ -2,7 +2,7 @@ const { mysqlDataContext } = require('../dataContexts');
 const HttpStatusCode = require('http-status-codes');
 const { sqlHelper } = require('../../utils');
 
-class GrammarTransactions {
+class EducationInformationTransactions {
   constructor() {
     this._datacontext = mysqlDataContext.connection();
   }
@@ -10,16 +10,17 @@ class GrammarTransactions {
   listAsync(values) {
     return new Promise((resolve, reject) => {
       this._datacontext.query(
-        `SELECT * FROM tblGrammar ${sqlHelper.getWhere(
+        `SELECT * FROM tblEducationInformation ${sqlHelper.getWhere(
           values
-        )} ORDER BY id ASC ${sqlHelper.getLimitOffset(values)}`,
+        )} ORDER BY EndDate ASC ${sqlHelper.getLimitOffset(values)}`,
         (error, result) => {
           if (!error) {
             if (result.length > 0) resolve(result);
             else
               reject({
                 status: HttpStatusCode.NOT_FOUND,
-                message: 'No grammar registered to the system was found.'
+                message:
+                  'No educational information registered to the system was found.'
               });
           } else {
             reject({
@@ -35,16 +36,16 @@ class GrammarTransactions {
   insertAsync(values) {
     return new Promise((resolve, reject) => {
       this._datacontext.query(
-        `INSERT INTO tblGrammar SET ?`,
+        `INSERT INTO tblEducationInformation SET ?`,
         values,
         (error, result) => {
           if (!error) {
             if (result.affectedRows)
-              resolve('Grammar registration has taken place.');
+              resolve('Education information registration has taken place.');
             else
               reject({
                 status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                message: 'Error while registering grammar!'
+                message: 'Error while registering education!'
               });
           } else {
             reject({
@@ -60,16 +61,17 @@ class GrammarTransactions {
   updateAsync(values) {
     return new Promise((resolve, reject) => {
       this._datacontext.query(
-        `UPDATE tblGrammar SET ? WHERE Id=?`,
+        `UPDATE tblEducationInformation SET ? WHERE Id=?`,
         [values, values.Id],
         (error, result) => {
           if (!error) {
             if (result.affectedRows)
-              resolve('Grammar information has been updated.');
+              resolve('Education information has been updated.');
             else
               reject({
                 status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                message: 'An error occurred while updating grammar information.'
+                message:
+                  'An error occurred while updating education information.'
               });
           } else {
             reject({
@@ -85,14 +87,14 @@ class GrammarTransactions {
   deleteAsync(values) {
     return new Promise((resolve, reject) => {
       this._datacontext.query(
-        `DELETE FROM tblGrammar ${sqlHelper.getWhere(values)}`,
+        `DELETE FROM tblEducationInformation ${sqlHelper.getWhere(values)}`,
         (error, result) => {
           if (!error) {
             if (result.affectedRows) resolve('Deletion succeeded.');
             else
               reject({
                 status: HttpStatusCode.GONE,
-                message: 'There is no such grammar.'
+                message: 'There is no such education information.'
               });
           } else {
             reject({
@@ -105,4 +107,5 @@ class GrammarTransactions {
     });
   }
 }
-module.exports = GrammarTransactions;
+
+module.exports = EducationInformationTransactions;
