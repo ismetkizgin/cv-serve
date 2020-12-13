@@ -10,7 +10,6 @@ const HttpStatusCode = require('http-status-codes');
 
 router.get(
   '/documentation',
-  tokenControl,
   documentationValidator.limitAndOffset,
   async (req, res) => {
     try {
@@ -31,6 +30,22 @@ router.get(
     try {
       const result = await documentationTransactions.listAsync(req.params);
       res.json(result[0]);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
+router.post(
+  '/documentation',
+  tokenControl,
+  documentationValidator.insert,
+  async (req, res) => {
+    try {
+      const result = await documentationTransactions.insertAsync(req.body);
+      res.json(result);
     } catch (error) {
       res
         .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
