@@ -20,6 +20,23 @@ class DocumentationValidator extends CommonValidator {
         .send('Must have correct data entry.');
     }
   }
+
+  static async update(req, res, next) {
+    try {
+      await joi
+        .object({
+          Id: joi.number().required(),
+          DocumentationName: joi.string().max(250).required(),
+          DocumentationDate: joi.date().required()
+        })
+        .validateAsync(req.body);
+      next();
+    } catch (error) {
+      res
+        .status(HttpStatusCode.EXPECTATION_FAILED)
+        .send('Must have correct data entry.');
+    }
+  }
 }
 
 module.exports = DocumentationValidator;

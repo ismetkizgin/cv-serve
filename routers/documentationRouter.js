@@ -54,4 +54,20 @@ router.post(
   }
 );
 
+router.put(
+  '/documentation',
+  tokenControl,
+  documentationValidator.update,
+  async (req, res) => {
+    try {
+      const result = await documentationTransactions.updateAsync(req.body);
+      res.json(result);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
 module.exports = router;

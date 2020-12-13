@@ -18,3 +18,15 @@ token: {{token}}
     "DocumentationName": "Test Dokümantasyon",
     "DocumentationDate": "01.01.2020"
 }
+
+###
+
+PUT {{baseUrl}}/documentation HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "Id": 1,
+    "DocumentationName": "Test Dokümantasyon",
+    "DocumentationDate": "01.01.2020"
+}

@@ -47,17 +47,36 @@ class DocumentationTransactions {
                 message: 'Error while registering documentation!'
               });
           } else {
-            reject(
-              error.errno == 1062
-                ? {
-                    status: HttpStatusCode.CONFLICT,
-                    message: 'There is such a documentation.'
-                  }
-                : {
-                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                    message: error.message
-                  }
-            );
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
+          }
+        }
+      );
+    });
+  }
+
+  updateAsync(values) {
+    return new Promise((resolve, reject) => {
+      this._datacontext.query(
+        `UPDATE tblDocumentation SET ? WHERE Id=?`,
+        [values, values.Id],
+        (error, result) => {
+          if (!error) {
+            if (result.affectedRows)
+              resolve('Documentation information has been updated.');
+            else
+              reject({
+                status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message:
+                  'An error occurred while updating documentation information.'
+              });
+          } else {
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
           }
         }
       );
