@@ -11,7 +11,7 @@ class GrammarValidator extends CommonValidator {
         .object({
           LanguageName: joi.string().max(100).required(),
           ReadingLevel: joi.string().max(50).required(),
-          writingLevel: joi.string().max(50).required(),
+          WritingLevel: joi.string().max(50).required(),
           SpeakingLevel: joi.string().max(50).required()
         })
         .validateAsync(req.body);
