@@ -22,4 +22,20 @@ router.get(
   }
 );
 
+router.post(
+  '/hobbies',
+  tokenControl,
+  hobbiesValidator.insert,
+  async (req, res) => {
+    try {
+      const result = await hobbiesTransaction.insertAsync(req.body);
+      res.json(result);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
 module.exports = router;

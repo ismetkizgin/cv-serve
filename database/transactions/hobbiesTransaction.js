@@ -31,6 +31,38 @@ class PersonalInformationTransactions {
       );
     });
   }
+
+  insertAsync(values) {
+    return new Promise((resolve, reject) => {
+      this._datacontext.query(
+        `INSERT INTO tblHobbies SET ?`,
+        values,
+        (error, result) => {
+          if (!error) {
+            if (result.affectedRows)
+              resolve('Hobby registration has taken place.');
+            else
+              reject({
+                status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: 'Error while registering hobby!'
+              });
+          } else {
+            reject(
+              error.errno == 1062
+                ? {
+                    status: HttpStatusCode.CONFLICT,
+                    message: 'There is such a hobby.'
+                  }
+                : {
+                    status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                    message: error.message
+                  }
+            );
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = PersonalInformationTransactions;
