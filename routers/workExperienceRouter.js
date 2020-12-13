@@ -10,7 +10,6 @@ const HttpStatusCode = require('http-status-codes');
 
 router.get(
   '/work-experience',
-  tokenControl,
   workExperienceValidator.limitAndOffset,
   async (req, res) => {
     try {
@@ -26,7 +25,6 @@ router.get(
 
 router.get(
   '/work-experience/:Id',
-  tokenControl,
   workExperienceValidator.paramId,
   async (req, res) => {
     try {
