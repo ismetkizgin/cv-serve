@@ -28,4 +28,20 @@ router.get('/grammar/:Id', grammarValidator.paramId, async (req, res) => {
   }
 });
 
+router.post(
+  '/grammar',
+  tokenControl,
+  grammarValidator.insert,
+  async (req, res) => {
+    try {
+      const result = await grammarTransactions.insertAsync(req.body);
+      res.json(result);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
 module.exports = router;

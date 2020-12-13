@@ -31,6 +31,31 @@ class PersonalInformationTransactions {
       );
     });
   }
+
+  insertAsync(values) {
+    return new Promise((resolve, reject) => {
+      this._datacontext.query(
+        `INSERT INTO tblGrammar SET ?`,
+        values,
+        (error, result) => {
+          if (!error) {
+            if (result.affectedRows)
+              resolve('Grammar registration has taken place.');
+            else
+              reject({
+                status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: 'Error while registering grammar!'
+              });
+          } else {
+            reject({
+              status: HttpStatusCode.INTERNAL_SERVER_ERROR,
+              message: error.message
+            });
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = PersonalInformationTransactions;

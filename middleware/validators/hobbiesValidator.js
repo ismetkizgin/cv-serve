@@ -19,6 +19,7 @@ class HobbiesValidator extends CommonValidator {
         .send('Must have correct data entry.');
     }
   }
+  
   static async update(req, res, next) {
     try {
       await joi
