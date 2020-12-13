@@ -2,15 +2,15 @@ const joi = require('joi');
 const HttpStatusCode = require('http-status-codes');
 const CommonValidator = require('./commonValidator');
 
-class DocumentationValidator extends CommonValidator {
+class EventValidator extends CommonValidator {
   constructor() {}
 
   static async insert(req, res, next) {
     try {
       await joi
         .object({
-          DocumentationName: joi.string().max(250).required(),
-          DocumentationDate: joi.date().required()
+          EventName: joi.string().max(250).required(),
+          EventStatus: joi.string().max(100).required()
         })
         .validateAsync(req.body);
       next();
@@ -26,8 +26,8 @@ class DocumentationValidator extends CommonValidator {
       await joi
         .object({
           Id: joi.number().required(),
-          DocumentationName: joi.string().max(250),
-          DocumentationDate: joi.date()
+          EventName: joi.string().max(250).required(),
+          EventStatus: joi.string().max(100).required()
         })
         .validateAsync(req.body);
       next();
@@ -39,4 +39,4 @@ class DocumentationValidator extends CommonValidator {
   }
 }
 
-module.exports = DocumentationValidator;
+module.exports = EventValidator;

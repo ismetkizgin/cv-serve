@@ -1,19 +1,19 @@
 const router = require('express')();
 const TransactionsFactory = require('../database/transactionFactory');
 const { validators, verifyToken } = require('../middleware');
-const documentationTransactions = TransactionsFactory.creating(
-  'documentationTransactions'
+const activitiesAttendedTransactions = TransactionsFactory.creating(
+  'activitiesAttendedTransactions'
 );
 const tokenControl = verifyToken.tokenControl;
-const documentationValidator = validators.documentationValidator;
+const activitiesAttendedValidator = validators.activitiesAttendedValidator;
 const HttpStatusCode = require('http-status-codes');
 
 router.get(
-  '/documentation',
-  documentationValidator.limitAndOffset,
+  '/activities-attended',
+  activitiesAttendedValidator.limitAndOffset,
   async (req, res) => {
     try {
-      const result = await documentationTransactions.listAsync(req.query);
+      const result = await activitiesAttendedTransactions.listAsync(req.query);
       res.json(result);
     } catch (error) {
       res
@@ -24,11 +24,11 @@ router.get(
 );
 
 router.get(
-  '/documentation/:Id',
-  documentationValidator.paramId,
+  '/activities-attended/:Id',
+  activitiesAttendedValidator.paramId,
   async (req, res) => {
     try {
-      const result = await documentationTransactions.listAsync(req.params);
+      const result = await activitiesAttendedTransactions.listAsync(req.params);
       res.json(result[0]);
     } catch (error) {
       res
@@ -39,12 +39,12 @@ router.get(
 );
 
 router.post(
-  '/documentation',
+  '/activities-attended',
   tokenControl,
-  documentationValidator.insert,
+  activitiesAttendedValidator.insert,
   async (req, res) => {
     try {
-      const result = await documentationTransactions.insertAsync(req.body);
+      const result = await activitiesAttendedTransactions.insertAsync(req.body);
       res.json(result);
     } catch (error) {
       res
@@ -55,12 +55,12 @@ router.post(
 );
 
 router.put(
-  '/documentation',
+  '/activities-attended',
   tokenControl,
-  documentationValidator.update,
+  activitiesAttendedValidator.update,
   async (req, res) => {
     try {
-      const result = await documentationTransactions.updateAsync(req.body);
+      const result = await activitiesAttendedTransactions.updateAsync(req.body);
       res.json(result);
     } catch (error) {
       res
@@ -71,12 +71,12 @@ router.put(
 );
 
 router.delete(
-  '/documentation',
+  '/activities-attended',
   tokenControl,
-  documentationValidator.bodyId,
+  activitiesAttendedValidator.bodyId,
   async (req, res) => {
     try {
-      const result = await documentationTransactions.deleteAsync(req.body);
+      const result = await activitiesAttendedTransactions.deleteAsync(req.body);
       res.json(result);
     } catch (error) {
       res

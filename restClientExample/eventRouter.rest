@@ -1,0 +1,42 @@
+GET {{baseUrl}}/event HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+###
+
+GET {{baseUrl}}/event/1 HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+###
+
+POST {{baseUrl}}/event HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "EventName": "Test Dokümantasyon",
+    "EventStatus": "Test 12 3"
+}
+
+###
+
+PUT {{baseUrl}}/event HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "Id": 1,
+    "EventName": "Test Dokümantasyon",
+    "EventStatus": "Test 12 3"
+}
+
+###
+
+DELETE {{baseUrl}}/event HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "Id": 1
+}

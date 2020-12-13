@@ -2,7 +2,7 @@ const { mysqlDataContext } = require('../dataContexts');
 const HttpStatusCode = require('http-status-codes');
 const { sqlHelper } = require('../../utils');
 
-class DocumentationTransactions {
+class EventTransactions {
   constructor() {
     this._datacontext = mysqlDataContext.connection();
   }
@@ -10,7 +10,7 @@ class DocumentationTransactions {
   listAsync(values) {
     return new Promise((resolve, reject) => {
       this._datacontext.query(
-        `SELECT * FROM tblDocumentation ${sqlHelper.getWhere(
+        `SELECT * FROM tblEvent ${sqlHelper.getWhere(
           values
         )} ORDER BY id ASC ${sqlHelper.getLimitOffset(values)}`,
         (error, result) => {
@@ -19,7 +19,7 @@ class DocumentationTransactions {
             else
               reject({
                 status: HttpStatusCode.NOT_FOUND,
-                message: 'No documentation registered to the system was found.'
+                message: 'No event registered to the system was found.'
               });
           } else {
             reject({
@@ -35,16 +35,16 @@ class DocumentationTransactions {
   insertAsync(values) {
     return new Promise((resolve, reject) => {
       this._datacontext.query(
-        `INSERT INTO tblDocumentation SET ?`,
+        `INSERT INTO tblEvent SET ?`,
         values,
         (error, result) => {
           if (!error) {
             if (result.affectedRows)
-              resolve('Documentation registration has taken place.');
+              resolve('Event registration has taken place.');
             else
               reject({
                 status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                message: 'Error while registering documentation!'
+                message: 'Error while registering event!'
               });
           } else {
             reject({
@@ -60,17 +60,16 @@ class DocumentationTransactions {
   updateAsync(values) {
     return new Promise((resolve, reject) => {
       this._datacontext.query(
-        `UPDATE tblDocumentation SET ? WHERE Id=?`,
+        `UPDATE tblEvent SET ? WHERE Id=?`,
         [values, values.Id],
         (error, result) => {
           if (!error) {
             if (result.affectedRows)
-              resolve('Documentation information has been updated.');
+              resolve('Event information has been updated.');
             else
               reject({
                 status: HttpStatusCode.INTERNAL_SERVER_ERROR,
-                message:
-                  'An error occurred while updating documentation information.'
+                message: 'An error occurred while updating event information.'
               });
           } else {
             reject({
@@ -86,14 +85,14 @@ class DocumentationTransactions {
   deleteAsync(values) {
     return new Promise((resolve, reject) => {
       this._datacontext.query(
-        `DELETE FROM tblDocumentation ${sqlHelper.getWhere(values)}`,
+        `DELETE FROM tblEvent ${sqlHelper.getWhere(values)}`,
         (error, result) => {
           if (!error) {
             if (result.affectedRows) resolve('Deletion succeeded.');
             else
               reject({
                 status: HttpStatusCode.GONE,
-                message: 'There is no such documentation.'
+                message: 'There is no such event.'
               });
           } else {
             reject({
@@ -107,4 +106,4 @@ class DocumentationTransactions {
   }
 }
 
-module.exports = DocumentationTransactions;
+module.exports = EventTransactions;
