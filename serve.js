@@ -14,6 +14,7 @@ app.use(routers.personalInformationRouter);
 app.use(routers.workExperienceRouter);
 app.use(routers.memberShipsRouter);
 app.use(routers.hobbiesRouter);
+app.use(routers.documentationRouter);
 
 app.use((req, res, next) => {
   res.send('404 NOT FOUND');
