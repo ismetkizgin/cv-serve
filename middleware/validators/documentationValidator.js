@@ -26,8 +26,8 @@ class DocumentationValidator extends CommonValidator {
       await joi
         .object({
           Id: joi.number().required(),
-          DocumentationName: joi.string().max(250).required(),
-          DocumentationDate: joi.date().required()
+          DocumentationName: joi.string().max(250),
+          DocumentationDate: joi.date()
         })
         .validateAsync(req.body);
       next();
