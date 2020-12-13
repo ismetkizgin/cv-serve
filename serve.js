@@ -19,6 +19,7 @@ app.use(routers.documentationRouter);
 app.use(routers.eventRouter);
 app.use(routers.activitiesAttendedRouter);
 app.use(routers.educationInformationRouter);
+app.use(routers.competenciesRouter);
 
 app.use((req, res, next) => {
   res.send('404 NOT FOUND');
