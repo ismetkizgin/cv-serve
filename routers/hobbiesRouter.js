@@ -22,6 +22,22 @@ router.get(
   }
 );
 
+router.get(
+  '/hobbies/:Id',
+  tokenControl,
+  hobbiesValidator.paramId,
+  async (req, res) => {
+    try {
+      const result = await hobbiesTransaction.listAsync(req.params);
+      res.json(result[0]);
+    } catch (error) {
+      res
+        .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
+        .send(error.message);
+    }
+  }
+);
+
 router.post(
   '/hobbies',
   tokenControl,
